@@ -16,11 +16,13 @@ export const archive = mutation({
 
     const existingDocument = await ctx.db.get(args.id);
 
-    if (existingDocument?.userId) {
+    console.log(existingDocument?.userId);
+
+    if (!existingDocument?.userId) {
       throw new Error("Not found");
     }
 
-    if (existingDocument?.userId === userId) {
+    if (existingDocument?.userId !== userId) {
       throw new Error("Unanthorized");
     }
 
