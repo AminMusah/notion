@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-providers";
 import { Toaster } from "sonner";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
           >
             {children}
             <Toaster position="bottom-center" />
+            <ModalProvider />
           </ThemeProvider>{" "}
         </ConvexClientProvider>
       </body>
