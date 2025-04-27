@@ -13,7 +13,7 @@ type Props = {
   editable?: boolean;
 };
 
-export default function Editor({ onChange, initialContent, editable }: Props) {
+function Editor({ onChange, initialContent, editable }: Props) {
   const { edgestore } = useEdgeStore();
 
   const handleUpload = async (file: File) => {
@@ -43,3 +43,5 @@ export default function Editor({ onChange, initialContent, editable }: Props) {
     </div>
   );
 }
+
+export default Editor;
