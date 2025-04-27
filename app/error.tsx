@@ -8,7 +8,7 @@ const Error = () => {
   return (
     <div className="h-full flex flex-col items-center justify-center space-y-4">
       <Image
-        src={"./190.Not-Found.png"}
+        src={"/190.Not-Found.png"}
         height={"300"}
         width={"300"}
         alt="Error"

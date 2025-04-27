@@ -34,6 +34,7 @@ function Editor({ onChange, initialContent, editable }: Props) {
   return (
     <div>
       <BlockNoteView
+        editable
         editor={editor}
         onChange={() => {
           // Saves the document JSON to state.
