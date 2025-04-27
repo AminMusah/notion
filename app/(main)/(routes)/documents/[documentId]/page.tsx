@@ -9,19 +9,15 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 
-// Add type helper for Usable (if not already defined)
-type Usable<T> = Promise<T> | { then(onFulfilled: (value: T) => any): any };
-
-interface DocumentIdPageProps {
-  params: {
-    documentId: Id<"documents">;
-  };
+// Define proper type for Next.js page params
+interface PageParams {
+  params: Promise<{ documentId: Id<"documents"> }>;
 }
 
-const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
-  const resolvedParams = use(
-    params as unknown as Usable<{ documentId: Id<"documents"> }>
-  );
+// Proper component typing for Next.js page
+const DocumentIdPage = ({ params }: PageParams) => {
+  // Unwrap params with proper typing
+  const resolvedParams = use<{ documentId: Id<"documents"> }>(params);
 
   const Editor = useMemo(
     () => dynamic(() => import("@/components/editor"), { ssr: false }),

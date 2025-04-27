@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["files.edgestore.dev"],
   },
+  serverComponentsExternalPackages: ["convex"],
+  reactRoot: true,
+  serverActions: true,
 };
 
 export default nextConfig;
