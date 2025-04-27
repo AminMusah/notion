@@ -1,13 +1,16 @@
 "use client";
 
-import Cover from "@/components/cover";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useMemo, use } from "react";
+import Cover from "@/components/cover";
 import Toolbar from "@/components/toolbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
+
+// Add type helper for Usable (if not already defined)
+type Usable<T> = Promise<T> | { then(onFulfilled: (value: T) => any): any };
 
 interface DocumentIdPageProps {
   params: {
@@ -16,20 +19,24 @@ interface DocumentIdPageProps {
 }
 
 const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
+  const resolvedParams = use(
+    params as unknown as Usable<{ documentId: Id<"documents"> }>
+  );
+
   const Editor = useMemo(
     () => dynamic(() => import("@/components/editor"), { ssr: false }),
     []
   );
 
   const document = useQuery(api.documents.getById, {
-    documentId: params.documentId,
+    documentId: resolvedParams.documentId,
   });
 
   const update = useMutation(api.documents.update);
 
   const onChange = (content: string) => {
     update({
-      id: params.documentId,
+      id: resolvedParams.documentId,
       content,
     });
   };
